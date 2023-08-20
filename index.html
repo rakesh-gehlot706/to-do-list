@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-do List</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  span {
+    color:linear-gradient(to right, #ff105f,#ffad09);
+    font-size: 35px;
+  }
+
+  span:hover {
+    color:#ffad09;
+    cursor: pointer;
+  }
+
+  span::before {
+    content: '';
+    position: absolute;
+    top: 310px;
+    left: 48 0px;
+    width: 0px;
+    height: 10px;
+    background-color: #dd7973;
+    border-radius: 10px;
+
+
+
+
+  }
+
+  span:hover::before {
+    width: 175px;
+    background: linear-gradient(to right, #ff105f,#ffad09);
+    transition: all 0.7s linear;
+  }
+
+
+  #todo-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(10, 10, 10, 0.9x);
+    padding: 20px;
+    width: 550px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 8px;
+
+
+  }
+
+  input[type="text"] {
+    padding: 10px;
+    width: 528px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    border: 0;
+    outline: 0;
+    box-shadow: 1px 1px 5px gray;
+    border-radius: 5px;
+  }
+
+  button {
+    border: none;
+    background: linear-gradient(to right, #ff105f,#ffad09);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.5s;
+  }
+
+  button:hover {
+    background: linear-gradient(to right, #ff105f,#ffad09);
+    color: black;
+    transform: scale(1.1);
+  }
+
+  /*button::before{
+    content: '';
+    position: absolute;
+    top: 402px;
+    left: 502px;
+    width:0px;
+    height: 32px;
+    background-color:#dd7973;
+    border-radius: 5px;
+    }
+
+    button:hover::before{
+    width: 55px;
+    background-color: #dd7973;
+    transition: all 0.5s linear;
+    opacity: 0.9;
+    }
+      */
+</style>
+</head>
+
+<body>
+
+
+  <div id="todo-container">
+    <h1><span>To-Do</span> List</h1>
+    <ul id="todo-list">
+      <!-- list item added dynamaclly -->
+    </ul>
+    <div>
+      <input type="text" id="new-task" placeholder="New task..." autofocus>
+
+      <button id="add-button">Add</button>
+      <button id="complete-button">Complete</button>
+      <button id="remove-button">Remove</button>
+      <button id="clear-button">Clear All</button>
+      <hr>
+    </div>
+  </div>
+  <script>
+    const addButton = document.getElementById('add-button');
+    const completeButton = document.getElementById('complete-button');
+    const removeButton = document.getElementById('remove-button');
+    const clearButton = document.getElementById('clear-button');
+    const todoList = document.getElementById('todo-list');
+    const newTaskInput = document.getElementById('new-task');
+
+
+
+    addButton.addEventListener('click', addTask);
+    completeButton.addEventListener('click', completeTask);
+    removeButton.addEventListener('click', removeTask);
+    clearButton.addEventListener('click', clearAll);
+
+
+
+    function addTask() {
+      const taskText = newTaskInput.value.trim();
+      if (taskText !== '') {
+        const li = document.createElement('li');
+        li.innerHTML = `<input type="checkbox"> ${taskText}`;
+        todoList.appendChild(li);
+        newTaskInput.value = '';
+      }
+    }
+
+    function completeTask() {
+      const checkboxes = todoList.querySelectorAll('input[type="checkbox"]:checked');
+      checkboxes.forEach(checkbox => {
+        const li = checkbox.parentNode;
+        li.style.textDecoration = 'line-through';
+
+      });
+    }
+
+    function removeTask() {
+      const checkboxes = todoList.querySelectorAll('input[type="checkbox"]:checked');
+      checkboxes.forEach(checkbox => {
+        const li = checkbox.parentNode;
+        todoList.removeChild(li);
+      });
+    }
+
+    function clearAll() {
+      todoList.innerHTML = '';
+    }
+  </script>
+</body>
+
+</html>
